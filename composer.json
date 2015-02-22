@@ -1,0 +1,20 @@
+{
+    "name": "na-ji/t411ad",
+    "description": "T411 AutoDownloader",
+
+    "license": "WTFPL",
+
+    "minimum-stability": "stable",
+
+    "require": {
+		"php"         : ">=5.3.3",
+		"doctrine/orm": "2.4.*",
+		"moinax/tvdb" : "*",
+		"na-ji/t411"  : "dev-master",
+		"symfony/yaml": "2.*"
+    },
+    
+    "autoload": {
+        "psr-0": {"": "src/"}
+    }
+}

@@ -1,0 +1,8 @@
+/cache/*
+!cache/.gitkeep
+/config.php
+/vendor/
+/*.sublime-workspace
+/*.sublime-project
+/composer.phar
+/composer.lock

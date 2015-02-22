@@ -1,0 +1,36 @@
+TVShow:
+    type: entity
+    table: tv_shows
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: 255
+        banner:
+            type: string
+            length: 255
+            nullable: true
+        imdbId:
+            type: string
+            length: 50
+            nullable: true
+        tvdbId:
+            type: integer
+        zap2ItId:
+            type: string
+            length: 50
+            nullable: true
+        downloadPath:
+            type: string
+            length: 255
+    oneToMany:
+        episodes:
+            targetEntity: Episode
+            mappedBy: tvshow
+            cascade: ["all"]
+    lifecycleCallbacks: {  }
