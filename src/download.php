@@ -14,7 +14,7 @@ function echoColor($text, $foreground_color = null, $background_color = null)
 	echo $colors->getColoredString($text, $foreground_color, $background_color);
 }
 
-$client = new T411Client(T411_LOGIN, T411_PASSWORD, TVDB_CACHE, 'http://t411.io');
+$client = new T411Client(T411_LOGIN, T411_PASSWORD, TVDB_CACHE, 'http://www.t411.io');
 $starTime = time();
 setlocale(LC_TIME, 'fr_FR.UTF8');
 
