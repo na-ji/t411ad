@@ -20,6 +20,7 @@ Episode:
             type: integer
         firstAired:
             type: datetime
+            nullable: true
         thumbnail:
             type: string
             length: 50
