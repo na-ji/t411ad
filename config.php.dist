@@ -6,3 +6,11 @@ define('TVDB_CACHE', __DIR__.'/cache');
 define('T411_LOGIN', 'YOUR LOGIN');
 define('T411_PASSWORD', 'YOUR PASSWORD');
 define('DOWNLOAD_PATH', 'DEFAULT DOWN PATH');
+
+// the connection configuration
+$dbParams = array(
+    'driver'   => 'pdo_mysql',
+    'user'     => 'USER',
+    'password' => 'PASSWORD',
+    'dbname'   => 'DB NAME',
+);
