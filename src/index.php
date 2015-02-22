@@ -45,7 +45,7 @@ if (isset($_POST['path']) && isset($_POST['tvdbID']) && intval($_POST['tvdbID'])
 				->setFirstAired($db_episode->firstAired)
 				->setThumbnail($db_episode->thumbnail)
 				->setTvshow($TVShow)
-				->setDownloaded((isset($_POST['marquerCommeTelecharger']) ? ($db_episode->firstAired <= $maintenant) : false))
+				->setDownloaded((isset($_POST['marquerCommeTelecharger']) ? (null === $db_episode->firstAired ? false : $db_episode->firstAired <= $maintenant) : false))
 			;
 			$em->persist($episode);
 		}
