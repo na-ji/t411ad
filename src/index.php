@@ -102,7 +102,7 @@ if (isset($_POST['path']) && isset($_POST['tvdbID']) && intval($_POST['tvdbID'])
     	?>
 		<div class="tab-content">
 			<div role="tabpanel" class="tab-pane fade in active" id="list">
-				<h1>Liste des séries téléchargées</h1>
+				<h1>Liste des séries en téléchargement</h1>
 				<?php
 					$tv_shows = $em->getRepository("TVShow")->findAll();
 					$s = (count($tv_shows) > 1 ? 's' : '');
@@ -114,6 +114,19 @@ if (isset($_POST['path']) && isset($_POST['tvdbID']) && intval($_POST['tvdbID'])
 							echo $tv_show->getName().'<br />';
 						}
 					} 
+				?>
+				<h3>Prochains téléchargements</h3>
+				<?php
+					$episodes = $em->getRepository("Episode")->getNextDownloads();
+
+					if (count($episodes) > 0)
+					{
+						foreach ($episodes as $episode) {
+							echo $episode->getFirstAired()->format('d/m/Y').' : '.$episode->getTvshow()->getName().' - '.$episode->getName().'<br />';
+						}
+					} else {
+						echo 'Aucun épisode prévu.';
+					}
 				?>
 			</div>
 			<div role="tabpanel" class="tab-pane fade" id="add">
