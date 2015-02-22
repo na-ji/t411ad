@@ -16,7 +16,7 @@ function echoColor($text, $foreground_color = null, $background_color = null)
 
 $client = new T411Client(T411_LOGIN, T411_PASSWORD, TVDB_CACHE, 'http://t411.io');
 $starTime = time();
-setlocale(LC_TIME, 'fr_FR');
+setlocale(LC_TIME, 'fr_FR.UTF8');
 
 echo "Démarrage du script le ".(strftime("%A %e %B %G à %T"))."\n";
 
