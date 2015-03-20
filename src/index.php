@@ -122,7 +122,8 @@ if (isset($_POST['path']) && isset($_POST['tvdbID']) && intval($_POST['tvdbID'])
 					if (count($episodes) > 0)
 					{
 						foreach ($episodes as $episode) {
-							echo $episode->getFirstAired()->format('d/m/Y').' : '.$episode->getTvshow()->getName().' - '.$episode->getName().'<br />';
+							$acronyme = 'S'.str_pad($episode->getSeason(), 2, "0", STR_PAD_LEFT).'E'.str_pad($episode->getNumber(), 2, "0", STR_PAD_LEFT);
+							echo $episode->getFirstAired()->format('d/m/Y').' : '.$episode->getTvshow()->getName().' '.$acronyme.' - '.$episode->getName().'<br />';
 						}
 					} else {
 						echo 'Aucun épisode prévu.';

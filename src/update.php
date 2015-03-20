@@ -42,7 +42,7 @@ foreach ($tvshows as $tvshow) {
 		//var_dump($tvdb_epis['episodes']);
 		$j = 0;
 		foreach (array_reverse($tvdb_epis['episodes']) as $tvdb_epi) { 
-			if (findEpisodeByTvdbId($episodes[$tvshow->getId()], $tvdb_epi->id) < 0)
+			if (findEpisodeByTvdbId($episodes[$tvshow->getId()], $tvdb_epi->id) < 0 && $tvdb_epi->id !== 0 && $tvdb_epi->number !== 0 && $tvdb_epi->season !== 0)
 			{
 				$j++;
 				$acronyme = 'S'.str_pad($tvdb_epi->season, 2, "0", STR_PAD_LEFT).'E'.str_pad($tvdb_epi->number, 2, "0", STR_PAD_LEFT);
