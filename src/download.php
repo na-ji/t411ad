@@ -6,7 +6,7 @@ header('Content-Type: text/plain; charset=utf-8');
 
 use Naji\T411\Client as T411Client;
 
-$client = new T411Client(T411_LOGIN, T411_PASSWORD, TVDB_CACHE, 'http://www.t411.io');
+$client = new T411Client(T411_LOGIN, T411_PASSWORD, TVDB_CACHE);
 $starTime = time();
 setlocale(LC_TIME, 'fr_FR.UTF8');
 
@@ -21,7 +21,7 @@ foreach ($tvshows as $tvshow) {
 		$acronyme = 'S'.str_pad($episode->getSeason(), 2, "0", STR_PAD_LEFT).'E'.str_pad($episode->getNumber(), 2, "0", STR_PAD_LEFT);
 		
 		echo "   Saison ".$episode->getSeason()." épisode ".$episode->getNumber()." ".$acronyme."\n";
-		$liens = $client->search(array('search' => $tvshow['tvshow']->getName().' '.$acronyme));
+		$liens = $client->search($tvshow['tvshow']->getName().' '.$acronyme);
 		$s     = count($liens) > 1 ? 's' : '';
 		
 		echo "      ".count($liens)." lien".$s." trouvé".$s."\n";
@@ -39,7 +39,7 @@ foreach ($tvshows as $tvshow) {
 						$full_hd[] = $lien;
 					}
 				}
-				echo "         ".str_pad($lien['name'], 80)." ".$lien['seeder']."\n";
+				echo "         ".str_pad($lien['name'], 80)." ".$lien['seeders']."\n";
 			}
 			echo "      Recherche du meilleur lien\n";
 			if (count($hd) > 0)
@@ -47,30 +47,30 @@ foreach ($tvshows as $tvshow) {
 				$max = 0;
 				$bestLien;
 				foreach ($hd as $lien) {
-					if ($lien['seeder'] > $max) {
-						$max      = $lien['seeder'];
+					if ($lien['seeders'] > $max) {
+						$max      = $lien['seeders'];
 						$bestLien = $lien;
 					}
 				}
-				echo "         ".str_pad($bestLien['name'], 80)." ".$bestLien['seeder']."\n";
+				echo "         ".str_pad($bestLien['name'], 80)." ".$bestLien['seeders']."\n";
 			} elseif (count($full_hd) > 0)
 			{
 				$max = 0;
 				$bestLien;
 				foreach ($full_hd as $lien) {
-					if ($lien['seeder'] > $max) {
-						$max      = $lien['seeder'];
+					if ($lien['seeders'] > $max) {
+						$max      = $lien['seeders'];
 						$bestLien = $lien;
 					}
 				}
-				echo "         ".str_pad($bestLien['name'], 80)." ".$bestLien['seeder']."\n";
+				echo "         ".str_pad($bestLien['name'], 80)." ".$bestLien['seeders']."\n";
 			} else {
 				echo "      Aucun lien en qualité suffisante\n";
 				break;
 			}
 
 			echo "      Enregistrement du torrent dans ".$tvshow['tvshow']->getDownloadPath()."\n";
-			$client->downloadTorrent('http://'.$bestLien['url'], $tvshow['tvshow']->getDownloadPath());
+			$client->downloadTorrent($bestLien['id'], $tvshow['tvshow']->getDownloadPath());
 			$episode->setDownloaded(true);
 			$em->persist($episode);
 		} else {
