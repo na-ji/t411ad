@@ -78,6 +78,12 @@ foreach ($tvshows as $tvshow) {
 		$episode  = $episodes[$tvshow->getId()]->get($i);
 		if ($episode->getDownloaded())
 			break;
+		// if the episode have been removed from TVDB, we remove it too
+		if (!array_key_exists($episode->getTvdbId(), $tvdb_epis['episodes']))
+		{
+			$em->remove($episode);
+			continue;
+		}
 		$tvdb_epi = $tvdb_epis['episodes'][$episode->getTvdbId()];
 		$acronyme = 'S'.str_pad($tvdb_epi->season, 2, "0", STR_PAD_LEFT).'E'.str_pad($tvdb_epi->number, 2, "0", STR_PAD_LEFT);
 		if($tvdb_epi->name != $episode->getName() || $tvdb_epi->firstAired != $episode->getFirstAired() || $tvdb_epi->thumbnail != $episode->getThumbnail())
