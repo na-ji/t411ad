@@ -47,4 +47,16 @@ class EpisodeRepository extends EntityRepository
 		    ->getResult()
 		;
     }
+
+    public function getLastDownloads()
+    {
+    	return $this
+			->createQueryBuilder('e')
+				->where('e.downloaded = 1')
+				->orderBy('e.firstAired', 'DESC')
+				->setMaxResults(10)
+			->getQuery()
+		    ->getResult()
+		;
+    }
 }

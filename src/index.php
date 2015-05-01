@@ -89,7 +89,7 @@ if (isset($_POST['path']) && isset($_POST['tvdbID']) && intval($_POST['tvdbID'])
 			</div>
 		</div>
 	</div>
-    <div class="container" style="margin-top: 50px;">
+    <div class="container" style="margin: 50px auto;">
     	<?php
     		if (count($flashBags) > 0)
     		{
@@ -115,20 +115,40 @@ if (isset($_POST['path']) && isset($_POST['tvdbID']) && intval($_POST['tvdbID'])
 						}
 					} 
 				?>
-				<h3>Prochains téléchargements</h3>
-				<?php
-					$episodes = $em->getRepository("Episode")->getNextDownloads();
+				<div class="row">
+					<div class="col-md-6">
+						<h3>Prochains téléchargements</h3>
+						<?php
+							$episodes = $em->getRepository("Episode")->getNextDownloads();
 
-					if (count($episodes) > 0)
-					{
-						foreach ($episodes as $episode) {
-							$acronyme = 'S'.str_pad($episode->getSeason(), 2, "0", STR_PAD_LEFT).'E'.str_pad($episode->getNumber(), 2, "0", STR_PAD_LEFT);
-							echo $episode->getFirstAired()->format('d/m/Y').' : '.$episode->getTvshow()->getName().' '.$acronyme.' - '.$episode->getName().'<br />';
-						}
-					} else {
-						echo 'Aucun épisode prévu.';
-					}
-				?>
+							if (count($episodes) > 0)
+							{
+								foreach ($episodes as $episode) {
+									$acronyme = 'S'.str_pad($episode->getSeason(), 2, "0", STR_PAD_LEFT).'E'.str_pad($episode->getNumber(), 2, "0", STR_PAD_LEFT);
+									echo $episode->getFirstAired()->format('d/m/Y').' : '.$episode->getTvshow()->getName().' '.$acronyme.' - '.$episode->getName().'<br />';
+								}
+							} else {
+								echo 'Aucun épisode prévu.';
+							}
+						?>
+					</div>
+					<div class="col-md-6">
+						<h3>Derniers téléchargements</h3>
+						<?php
+							$episodes = $em->getRepository("Episode")->getLastDownloads();
+
+							if (count($episodes) > 0)
+							{
+								foreach ($episodes as $episode) {
+									$acronyme = 'S'.str_pad($episode->getSeason(), 2, "0", STR_PAD_LEFT).'E'.str_pad($episode->getNumber(), 2, "0", STR_PAD_LEFT);
+									echo $episode->getFirstAired()->format('d/m/Y').' : '.$episode->getTvshow()->getName().' '.$acronyme.' - '.$episode->getName().'<br />';
+								}
+							} else {
+								echo 'Aucun épisode prévu.';
+							}
+						?>
+					</div>
+				</div>
 			</div>
 			<div role="tabpanel" class="tab-pane fade" id="add">
 				<h1>Ajouter une série</h1>
