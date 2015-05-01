@@ -10,7 +10,7 @@ if(isset($_GET['path']) && $_GET['path'] != "")
 {
 	$directories = array();
 	foreach (scandir($_GET['path']) as $handle) {
-		if (is_dir($_GET['path'].'/'.$handle)) {
+		if (is_dir($_GET['path'].'/'.$handle) && is_writable($_GET['path'].'/'.$handle)) {
 			$directories[] = $handle;
 		}
 	}
